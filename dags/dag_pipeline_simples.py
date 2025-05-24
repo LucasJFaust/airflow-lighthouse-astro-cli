@@ -25,11 +25,15 @@ OUTPUT_PATH = Path(__file__).parents[1] / "output"
 OUTPUT_PATH.mkdir(exist_ok=True)  # Cria o diretório se ele não existir
 
 @dag(
-    dag_id="dag_pipeline_simples",  # Nome da DAG visível na UI
-    start_date=pendulum.datetime(2024, 6, 30, tz="UTC"),  # Data de início com timezone correto
-    schedule_interval=None,  # Não agenda automaticamente, só executa manual
-    catchup=False,  # Evita execuções retroativas
-    tags=["aula", "etl", "ibge"]  # Ajuda a categorizar a DAG na UI
+    dag_id="dag_pipeline_simples",
+    start_date=pendulum.datetime(2024, 6, 30, tz="UTC"),
+    schedule_interval=None,
+    catchup=False,
+    tags=["aula", "etl", "ibge"],
+    default_args={
+        "retries": 2,
+        "retry_delay": pendulum.duration(seconds=10),
+    }
 )
 def pipeline_ibge():
     """
