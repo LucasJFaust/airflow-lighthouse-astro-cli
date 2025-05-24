@@ -1,4 +1,5 @@
-FROM astrocrpublic.azurecr.io/runtime:3.0-2
+# Usa uma versão moderna do Astronomer Runtime (recomendado pela Astronomer)
+FROM quay.io/astronomer/astro-runtime:8.2.0
 
-# Instala bibliotecas adicionais necessárias para as DAGs
+# Instala bibliotecas adicionais necessárias
 RUN pip install --no-cache-dir requests
